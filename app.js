@@ -107,9 +107,13 @@ let accessToken = null;
 
 // Function to handle the Instagram authorization flow
 function authorize() {
-  const url = `${authUrl}`;
+  const url = `https://api.instagram.com/oauth/authorize?client_id=${appId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=user_profile,user_media&response_type=code`;
   window.location.href = url;
 }
+// function authorize() {
+//   const url = `${authUrl}`;
+//   window.location.href = url;
+// }
 
 // Function to handle the Instagram deauthorization callback
 function deauthorize(userId) {
