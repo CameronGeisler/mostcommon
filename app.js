@@ -2,7 +2,7 @@ document.getElementById('login-btn').addEventListener('click', () => {
     // Replace with your own Instagram App ID and redirect URI
     const appId = '2011593365861809';
     const redirectUri = 'https://camerongeisler.github.io/mostcommon/callback.html';
-    const responseType = 'token';
+    const responseType = 'code';
     const scope = 'user_profile,user_media';
 
     const authUrl = `https://api.instagram.com/oauth/authorize?client_id=${appId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${scope}&response_type=${responseType}`;
@@ -79,12 +79,6 @@ if (access_token) {
     getFollowers(access_token);
 }
 
-
-
-javascript
-
-Copy
-
 // Set up the Instagram App ID and Redirect URI
 const appId = "2011593365861809";
 const clientSecret = "6ed7f72c56d56247248b1391e9381433";
@@ -111,10 +105,6 @@ function authorize() {
   const url = `https://api.instagram.com/oauth/authorize?client_id=${appId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=user_profile,user_media&response_type=code`;
   window.location.href = url;
 }
-// function authorize() {
-//   const url = `${authUrl}`;
-//   window.location.href = url;
-// }
 
 // Function to handle the Instagram deauthorization callback
 function deauthorize(userId) {
@@ -128,17 +118,6 @@ function getUserData() {
     .then((response) => response.json())
     .then((data) => {
       // TODO: Handle the user's data by displaying it in your app
-    })
-    .catch((error) => console.error(error));
-}
-
-// Function to retrieve the user's Instagram media
-function getUserMedia() {
-  const url = `${endpoints.media}?access_token=${accessToken}`;
-  fetch(url)
-    .then((response) => response.json())
-    .then((data) => {
-      // TODO: Handle the user's media by displaying it in your app
     })
     .catch((error) => console.error(error));
 }
@@ -175,8 +154,7 @@ function handleAccessToken() {
 // Call the handleAccessToken function when the page loads
 handleAccessToken();
 
-
-const dataDeletionUrl = "https://camerongeisler.github.io/mostcommon/deauthorize.html"; // Replace with your own email address
+const dataDeletionUrl = "https://camerongeisler.github.io/mostcommon/deauthorize.html";
 
 function handleDataDeletion(userId) {
     // TODO: Delete the user's data from your app
