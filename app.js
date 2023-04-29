@@ -80,10 +80,15 @@ if (access_token) {
 
 
 
+javascript
+
+Copy
+
 // Set up the Instagram App ID and Redirect URI
 const appId = "2011593365861809";
+const clientSecret = "6ed7f72c56d56247248b1391e9381433";
 const redirectUri = "https://camerongeisler.github.io/mostcommon/callback.html";
-const responseType = "token";
+const responseType = "code";
 const scope = "user_profile,user_media";
 
 // Set up the Instagram API endpoint URLs
@@ -102,7 +107,7 @@ let accessToken = null;
 
 // Function to handle the Instagram authorization flow
 function authorize() {
-  const url = `${authUrl}?client_id=${appId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=${responseType}&scope=${scope}`;
+  const url = `${authUrl}`;
   window.location.href = url;
 }
 
@@ -135,15 +140,30 @@ function getUserMedia() {
 
 // Function to handle the Instagram access token
 function handleAccessToken() {
-  const hash = window.location.hash.substr(1);
-  const params = new URLSearchParams(hash);
-  accessToken = params.get("access_token");
-  const userId = params.get("user_id");
-  if (accessToken) {
-    // TODO: Handle the access token by retrieving the user's data and media
-  } else if (userId) {
-    // Handle the deauthorization callback by removing the user's data from your app
-    deauthorize(userId);
+  const searchParams = new URLSearchParams(window.location.search);
+  const code = searchParams.get("code");
+  if (code) {
+    const data = {
+      client_id: appId,
+      client_secret: clientSecret,
+      grant_type: "authorization_code",
+      redirect_uri: redirectUri,
+      code: code,
+    };
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: new URLSearchParams(data),
+    };
+    fetch(tokenUrl, options)
+      .then((response) => response.json())
+      .then((data) => {
+        accessToken = data.access_token;
+        // TODO: Handle the access token by retrieving the user's data and media
+      })
+      .catch((error) => console.error(error));
   }
 }
 
