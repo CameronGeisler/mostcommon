@@ -1,13 +1,13 @@
 // Set up the Instagram App ID and Redirect URI
 const appId = "2011593365861809";
-const clientSecret = "6ed7f72c56d56247248b1391e9381433";
 const redirectUri = "https://camerongeisler.github.io/mostcommon/callback.html";
 const responseType = "code";
 const scope = "user_profile,user_media";
 
 // Set up the Instagram API endpoint URLs
-const apiBaseUrl = "https://api.instagram.com/v1";
-const tokenUrl = "https://api.instagram.com/oauth/access_token/";
+const apiBaseUrl = "https://graph.instagram.com";
+const authUrl = `https://api.instagram.com/oauth/authorize?client_id=${appId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${scope}&response_type=${responseType}`;
+const tokenUrl = "https://api.instagram.com/oauth/access_token";
 
 // Set up the Instagram API endpoints
 const endpoints = {
@@ -17,19 +17,6 @@ const endpoints = {
 
 // Set up the Instagram API access token
 let accessToken = null;
-
-// Update the login button event listener
-document.getElementById('login-btn').addEventListener('click', () => {
-  // Replace with your own Instagram App ID and redirect URI
-  const appId = '2011593365861809';
-  const redirectUri = 'https://camerongeisler.github.io/mostcommon/callback.html';
-  const responseType = 'code';
-  const scope = 'user_profile,user_media';
-
-  const authUrl = `https://api.instagram.com/oauth/authorize?client_id=${appId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${scope}&response_type=${responseType}`;
-
-  window.location.href = authUrl;
-});
 
 // Function to handle the Instagram authorization flow
 function authorize() {
@@ -90,6 +77,19 @@ const dataDeletionUrl = "https://camerongeisler.github.io/mostcommon/deauthorize
 function handleDataDeletion(userId) {
     // TODO: Delete the user's data from your app
 }
+
+// Update the login button event listener
+document.getElementById('login-btn').addEventListener('click', () => {
+  // Replace with your own Instagram App ID and redirect URI
+  const appId = '2011593365861809';
+  const redirectUri = 'https://camerongeisler.github.io/mostcommon/callback.html';
+  const responseType = 'code';
+  const scope = 'user_profile,user_media';
+
+  const authUrl = `https://api.instagram.com/oauth/authorize?client_id=${appId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${scope}&response_type=${responseType}`;
+
+  window.location.href = authUrl;
+});
   
 window.addEventListener("message", (event) => {
     if (event.origin === "https://www.instagram.com") {
