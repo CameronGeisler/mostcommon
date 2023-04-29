@@ -155,7 +155,7 @@ handleAccessToken();
 
 
 
-const dataDeletionUrl = "https://example.com/instagram/data-deletion"; // Replace with your own Data Deletion Request URL
+const dataDeletionUrl = "mailto:ckg888888@gmail.com"; // Replace with your own email address
 
 function handleDataDeletion(userId) {
     // TODO: Delete the user's data from your app
@@ -166,6 +166,7 @@ window.addEventListener("message", (event) => {
       const data = JSON.parse(event.data);
       if (data.type === "DATA_DELETION_REQUEST") {
         handleDataDeletion(data.userId);
+        window.location.href = dataDeletionUrl;
       }
     }
 });
