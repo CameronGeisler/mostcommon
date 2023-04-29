@@ -80,19 +80,16 @@ if (access_token) {
 
 
 
-
-
-
-// Set up the Instagram API endpoint URLs
-const apiBaseUrl = "https://api.instagram.com/v1";
-// const authUrl = "https://api.instagram.com/oauth/authorize/";
-const authUrl = `https://api.instagram.com/oauth/authorize?client_id=${appId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${scope}&response_type=${responseType}`;
-const tokenUrl = "https://api.instagram.com/oauth/access_token/";
-
 // Set up the Instagram App ID and Redirect URI
 const appId = "2011593365861809";
 const redirectUri = "https://camerongeisler.github.io/mostcommon/callback.html";
-const deauthCallbackUrl = "https://camerongeisler.github.io/mostcommon/deauthorize.html"; // Replace with your own Deauthorize Callback URL
+const responseType = "token";
+const scope = "user_profile,user_media";
+
+// Set up the Instagram API endpoint URLs
+const apiBaseUrl = "https://api.instagram.com/v1";
+const authUrl = `https://api.instagram.com/oauth/authorize?client_id=${appId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${scope}&response_type=${responseType}`;
+const tokenUrl = "https://api.instagram.com/oauth/access_token/";
 
 // Set up the Instagram API endpoints
 const endpoints = {
@@ -152,8 +149,6 @@ function handleAccessToken() {
 
 // Call the handleAccessToken function when the page loads
 handleAccessToken();
-
-
 
 
 const dataDeletionUrl = "https://camerongeisler.github.io/mostcommon/deauthorize.html"; // Replace with your own email address
