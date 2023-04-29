@@ -1,7 +1,7 @@
 document.getElementById('login-btn').addEventListener('click', () => {
     // Replace with your own Instagram App ID and redirect URI
     const appId = '1198550687530628';
-    const redirectUri = 'https://camerongeisler.github.io/mostcommon/';
+    const redirectUri = '"https://camerongeisler.github.io/mostcommon/instagram/callback';
     const responseType = 'token';
     const scope = 'user_profile,user_media';
 
