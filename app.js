@@ -102,7 +102,7 @@ let accessToken = null;
 
 // Function to handle the Instagram authorization flow
 function authorize() {
-  const url = `${authUrl}?client_id=${appId}&redirect_uri=${redirectUri}&response_type=token`;
+  const url = `${authUrl}?client_id=${appId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=${responseType}&scope=${scope}`;
   window.location.href = url;
 }
 
