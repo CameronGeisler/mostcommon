@@ -1,7 +1,7 @@
 document.getElementById('login-btn').addEventListener('click', () => {
     // Replace with your own Instagram App ID and redirect URI
     const appId = '2011593365861809';
-    const redirectUri = '"https://camerongeisler.github.io/mostcommon/callback.html';
+    const redirectUri = 'https://camerongeisler.github.io/mostcommon/callback.html';
     const responseType = 'token';
     const scope = 'user_profile,user_media';
 
@@ -91,7 +91,7 @@ const tokenUrl = "https://api.instagram.com/oauth/access_token/";
 // Set up the Instagram App ID and Redirect URI
 const appId = "2011593365861809";
 const redirectUri = "https://camerongeisler.github.io/mostcommon/callback.html";
-const deauthCallbackUrl = "https://camerongeisler.github.io/mostcommon/instagram/deauthorize"; // Replace with your own Deauthorize Callback URL
+const deauthCallbackUrl = "https://camerongeisler.github.io/mostcommon/deauthorize.html"; // Replace with your own Deauthorize Callback URL
 
 // Set up the Instagram API endpoints
 const endpoints = {
@@ -155,7 +155,7 @@ handleAccessToken();
 
 
 
-const dataDeletionUrl = "https://camerongeisler.github.io/mostcommon/instagram/deauthorize"; // Replace with your own email address
+const dataDeletionUrl = "https://camerongeisler.github.io/mostcommon/deauthorize.html"; // Replace with your own email address
 
 function handleDataDeletion(userId) {
     // TODO: Delete the user's data from your app
