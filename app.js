@@ -155,7 +155,7 @@ handleAccessToken();
 
 
 
-const dataDeletionUrl = "mailto:ckg888888@gmail.com"; // Replace with your own email address
+const dataDeletionUrl = "https://camerongeisler.github.io/mostcommon/instagram/deauthorize"; // Replace with your own email address
 
 function handleDataDeletion(userId) {
     // TODO: Delete the user's data from your app
