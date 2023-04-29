@@ -10,66 +10,67 @@ document.getElementById('login-btn').addEventListener('click', () => {
     window.location.href = authUrl;
 });
 
+// Function to handle retrieving the user's followers
 function getFollowers(access_token) {
-    fetch(`https://graph.instagram.com/me?fields=id,username&access_token=${access_token}`)
+  fetch(`https://graph.instagram.com/me?fields=id,username&access_token=${access_token}`)
+    .then(response => response.json())
+    .then(data => {
+      const userId = data.id;
+      fetch(`https://graph.instagram.com/${userId}/followers?fields=id,username&access_token=${access_token}`)
         .then(response => response.json())
         .then(data => {
-            const userId = data.id;
-            fetch(`https://graph.instagram.com/${userId}/friends?fields=id,username&access_token=${access_token}`)
-                .then(response => response.json())
-                .then(data => {
-                    const following = data.data.map(user => user.id);
-                    const followers = [];
-                    following.forEach(user_id => {
-                        fetch(`https://graph.instagram.com/${user_id}/friends?fields=id,username&access_token=${access_token}`)
-                            .then(response => response.json())
-                            .then(data => {
-                                followers.push(...data.data);
-                                if (followers.length === following.length) {
-                                    const mutual_followers = {};
-                                    followers.forEach(follower => {
-                                        if (!following.includes(follower.id)) {
-                                            if (mutual_followers[follower.id]) {
-                                                mutual_followers[follower.id]++;
-                                            } else {
-                                                mutual_followers[follower.id] = 1;
-                                            }
-                                        }
-                                    });
-                                    const sorted_mutual_followers = Object.entries(mutual_followers).sort((a, b) => b[1] - a[1]);
-                                    const userList = document.getElementById('user-list');
-                                    sorted_mutual_followers.forEach(([user_id, shared_connections]) => {
-                                        fetch(`https://graph.instagram.com/${user_id}?fields=id,username,profile_picture_url&access_token=${access_token}`)
-                                            .then(response => response.json())
-                                            .then(data => {
-                                                const user = data;
-                                                const userDiv = document.createElement('div');
-                                                userDiv.classList.add('user');
+          const followers = data.data.map(user => user.id);
+          const following = [];
+          followers.forEach(user_id => {
+            fetch(`https://graph.instagram.com/${user_id}/following?fields=id,username&access_token=${access_token}`)
+              .then(response => response.json())
+              .then(data => {
+                following.push(...data.data);
+                if (following.length === followers.length) {
+                  const mutual_following = {};
+                  following.forEach(followed_user => {
+                    if (!followers.includes(followed_user.id)) {
+                      if (mutual_following[followed_user.id]) {
+                        mutual_following[followed_user.id]++;
+                      } else {
+                        mutual_following[followed_user.id] = 1;
+                      }
+                    }
+                  });
+                  const sorted_mutual_following = Object.entries(mutual_following).sort((a, b) => b[1] - a[1]);
+                  const userList = document.getElementById('user-list');
+                  sorted_mutual_following.forEach(([user_id, shared_connections]) => {
+                    fetch(`https://graph.instagram.com/${user_id}?fields=id,username,profile_picture_url&access_token=${access_token}`)
+                      .then(response => response.json())
+                      .then(data => {
+                        const user = data;
+                        const userDiv = document.createElement('div');
+                        userDiv.classList.add('user');
 
-                                                const img = document.createElement('img');
-                                                img.src = user.profile_picture_url;
-                                                userDiv.appendChild(img);
+                        const img = document.createElement('img');
+                        img.src = user.profile_picture_url;
+                        userDiv.appendChild(img);
 
-                                                const username = document.createElement('span');
-                                                username.textContent = `${user.username} (${shared_connections} shared connections)`;
-                                                userDiv.appendChild(username);
+                        const username = document.createElement('span');
+                        username.textContent = `${user.username} (${shared_connections} shared connections)`;
+                        userDiv.appendChild(username);
 
-                                                const followBtn = document.createElement('button');
-                                                followBtn.classList.add('follow-btn');
-                                                followBtn.textContent = 'Follow';
-                                                followBtn.onclick = () => {
-                                                    alert(`Follow request sent to ${user.username}`);
-                                                };
-                                                userDiv.appendChild(followBtn);
+                        const followBtn = document.createElement('button');
+                        followBtn.classList.add('follow-btn');
+                        followBtn.textContent = 'Follow';
+                        followBtn.onclick = () => {
+                          alert(`Follow request sent to ${user.username}`);
+                        };
+                        userDiv.appendChild(followBtn);
 
-                                                userList.appendChild(userDiv);
-                                            });
-                                    });
-                                }
-                            });
-                    });
-                });
+                        userList.appendChild(userDiv);
+                      });
+                  });
+                }
+              });
+          });
         });
+    });
 }
 
 const urlParams = new URLSearchParams(window.location.hash.slice(1));
