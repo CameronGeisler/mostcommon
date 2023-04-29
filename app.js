@@ -7,7 +7,6 @@ const scope = "user_profile,user_media";
 
 // Set up the Instagram API endpoint URLs
 const apiBaseUrl = "https://api.instagram.com/v1";
-const authUrl = `https://api.instagram.com/oauth/authorize?client_id=${appId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${scope}&response_type=${responseType}`;
 const tokenUrl = "https://api.instagram.com/oauth/access_token/";
 
 // Set up the Instagram API endpoints
