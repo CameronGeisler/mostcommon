@@ -84,9 +84,9 @@ document.getElementById('login-btn').addEventListener('click', () => {
   const appId = '2011593365861809';
   const redirectUri = 'https://camerongeisler.github.io/mostcommon/callback.html';
   const responseType = 'code';
-  const scope = 'user_profile,user_media';
+  const scope = 'user_profile';
 
-  const authUrl = `https://api.instagram.com/oauth/authorize?client_id=${appId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${scope}&response_type=${responseType}`;
+  const authUrl = `https://api.instagram.com/oauth/authorize?client_id=${appId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${scope}&response_type=code`;
 
   window.location.href = authUrl;
 });
